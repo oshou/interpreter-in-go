@@ -39,6 +39,8 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETUSN"
+	EQ       = "=="
+	NOT_EQ   = "!="
 )
 
 type Token struct {
