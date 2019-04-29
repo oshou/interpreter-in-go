@@ -1,7 +1,5 @@
 package token
 
-type TokenType string
-
 const (
 	// 異常値
 	ILLEGAL = "ILLEGAL"
@@ -38,10 +36,12 @@ const (
 	FALSE    = "FALSE"
 	IF       = "IF"
 	ELSE     = "ELSE"
-	RETURN   = "RETUSN"
+	RETURN   = "RETURN"
 	EQ       = "=="
 	NOT_EQ   = "!="
 )
+
+type TokenType string
 
 type Token struct {
 	Type    TokenType
@@ -59,6 +59,7 @@ var keywords = map[string]TokenType{
 }
 
 func LookupIdent(ident string) TokenType {
+	// keywordsに含まれる場合はvalueを返す
 	if tok, ok := keywords[ident]; ok {
 		return tok
 	}
