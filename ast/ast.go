@@ -7,7 +7,7 @@ import (
 
 type Node interface {
 	TokenLiteral() string
-	string() string
+	String() string
 }
 
 type Statement interface {
@@ -40,6 +40,7 @@ func (p *Program) String() string {
 	for _, s := range p.Statements {
 		out.WriteString(s.String())
 	}
+
 	return out.String()
 }
 
