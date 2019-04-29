@@ -18,6 +18,11 @@ type Parser struct {
 	curToken token.Token
 	// 次トークン
 	peekToken token.Token
+
+	// 前置構文解析関数のmap
+	prefixParseFns map[token.TokenType]prefixParseFn
+	// 中置構文解析関数のmap
+	infixParseFns map[token.TokenType]infixParseFn
 }
 
 // Parserのコンストラクタ
@@ -140,4 +145,21 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	}
 
 	return stmt
+}
+
+type (
+	// 前置構文解析関数
+	prefixParseFn func() ast.Expression
+	// 中置構文解析関数(演算子の左側を引数として取る)
+	infixParseFn func(ast.Expression) ast.Expression
+)
+
+// 前置構文解析関数のmapへの追加
+func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
+	p.prefixParseFns[tokenType] = fn
+}
+
+// 中置構文解析関数のmapへの追加
+func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
+	p.infixParseFns[tokenType] = fn
 }
